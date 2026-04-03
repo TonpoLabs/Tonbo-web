@@ -3,7 +3,7 @@ import { GATEWAY_URL } from '../theme';
 
 class ApiClient {
   constructor() {
-    this.baseUrl = GATEWAY_URL;
+    this.baseUrl = '';
     this.apiKey = null;
   }
 
