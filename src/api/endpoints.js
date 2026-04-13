@@ -17,6 +17,9 @@ export const createAccount = (mt5Login, mt5Password, mt5Server) =>
 
 export const deleteAccount = (id) =>
   api.del(`/api/accounts/${id}`);
+  
+export const rotateMyKey = () =>
+  api.post('/api/users/me/rotate-key');  
 
 export const pauseAccount = (id) =>
   api.post(`/api/accounts/${id}/pause`);

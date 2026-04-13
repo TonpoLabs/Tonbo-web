@@ -3,7 +3,9 @@ import { GATEWAY_URL } from '../theme';
 
 class ApiClient {
   constructor() {
-    this.baseUrl = '';
+    // Use GATEWAY_URL only in production (when no Vite proxy).
+    // In dev, Vite proxy handles /api/* so baseUrl stays empty.
+    this.baseUrl = import.meta.env.PROD ? GATEWAY_URL : '';
     this.apiKey = null;
   }
 
