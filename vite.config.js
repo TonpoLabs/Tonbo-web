@@ -22,6 +22,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
       },
+      '/node':   {
+        target: 'wss://gateway.cipherbridge.cloud',
+        changeOrigin: true,
+        ws: true          
+      },
     },
   },
 });
