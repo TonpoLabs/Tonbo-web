@@ -1,30 +1,7 @@
-// src/components/CodeBlock.jsx
-import { useState } from 'react';
+// src/components/Shared.jsx
 import { T } from '../theme';
 
-export function CodeBlock({ code, title, language }) {
-  const [copied, setCopied] = useState(false);
-  const copy = () => {
-    navigator.clipboard?.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-  return (
-    <div style={{ background: T.bgInput, border: `1px solid ${T.border}`, borderRadius: T.radius, overflow: 'hidden', marginBottom: 16 }}>
-      {title && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 16px', borderBottom: `1px solid ${T.border}`, background: T.bgCard }}>
-          <span style={{ fontFamily: T.mono, fontSize: 11, color: T.textDim }}>{language ? <span style={{ color: T.accent, marginRight: 8 }}>{language}</span> : null}{title}</span>
-          <button onClick={copy} style={{ background: 'none', border: 'none', color: copied ? T.accent : T.textDim, cursor: 'pointer', fontFamily: T.mono, fontSize: 11, padding: '2px 6px', borderRadius: 4 }}>
-            {copied ? '✓ copied' : 'copy'}
-          </button>
-        </div>
-      )}
-      <pre style={{ padding: '16px 20px', margin: 0, fontFamily: T.mono, fontSize: 12, lineHeight: 1.75, color: T.textMuted, overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{code}</pre>
-    </div>
-  );
-}
-
-// ── Spinner ───────────────────────────────────────────────────────────────
+// ── Spinner ───────────────────────────────────────────────────────────────────
 export function Spinner({ size = 20, color }) {
   return (
     <span style={{
@@ -38,16 +15,16 @@ export function Spinner({ size = 20, color }) {
   );
 }
 
-// ── Button ────────────────────────────────────────────────────────────────
+// ── Button ────────────────────────────────────────────────────────────────────
 export function Btn({ children, onClick, variant = 'primary', size = 'md', disabled, loading, style: extraStyle, type = 'button' }) {
   const sizes  = { sm: '7px 14px', md: '10px 20px', lg: '13px 28px' };
   const fSizes = { sm: 12, md: 13, lg: 15 };
   const variants = {
-    primary:  { background: T.accent,   color: T.bg,       border: 'none' },
-    ghost:    { background: 'transparent', color: T.textMuted, border: `1px solid ${T.border}` },
-    danger:   { background: T.redBg,    color: T.red,      border: `1px solid ${T.red}33` },
-    success:  { background: T.greenBg,  color: T.green,    border: `1px solid ${T.green}33` },
-    warning:  { background: T.orangeBg, color: T.orange,   border: `1px solid ${T.orange}33` },
+    primary: { background: T.accent,       color: T.bg,       border: 'none' },
+    ghost:   { background: 'transparent',  color: T.textMuted, border: `1px solid ${T.border}` },
+    danger:  { background: T.redBg,        color: T.red,      border: `1px solid ${T.red}33` },
+    success: { background: T.greenBg,      color: T.green,    border: `1px solid ${T.green}33` },
+    warning: { background: T.orangeBg,     color: T.orange,   border: `1px solid ${T.orange}33` },
   };
   const v = variants[variant] || variants.primary;
   return (
@@ -71,7 +48,7 @@ export function Btn({ children, onClick, variant = 'primary', size = 'md', disab
   );
 }
 
-// ── Modal ─────────────────────────────────────────────────────────────────
+// ── Modal ─────────────────────────────────────────────────────────────────────
 export function Modal({ open, onClose, title, children, maxWidth = 460 }) {
   if (!open) return null;
   return (
@@ -103,7 +80,7 @@ export function Modal({ open, onClose, title, children, maxWidth = 460 }) {
   );
 }
 
-// ── EmptyState ────────────────────────────────────────────────────────────
+// ── EmptyState ────────────────────────────────────────────────────────────────
 export function EmptyState({ icon = '◻', title, sub, action }) {
   return (
     <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: T.radiusLg, padding: '56px 32px', textAlign: 'center' }}>
@@ -115,7 +92,7 @@ export function EmptyState({ icon = '◻', title, sub, action }) {
   );
 }
 
-// ── Alert ────────────────────────────────────────────────────────────────
+// ── Alert ─────────────────────────────────────────────────────────────────────
 export function Alert({ children, variant = 'error' }) {
   const colors = { error: T.red, success: T.green, warning: T.orange, info: T.blue };
   const c = colors[variant] || T.red;
@@ -126,7 +103,7 @@ export function Alert({ children, variant = 'error' }) {
   );
 }
 
-// ── Input ─────────────────────────────────────────────────────────────────
+// ── Input ─────────────────────────────────────────────────────────────────────
 export function Input({ label, value, onChange, placeholder, type = 'text', readOnly, mono, hint, error: err }) {
   return (
     <div style={{ marginBottom: 16 }}>
@@ -135,7 +112,7 @@ export function Input({ label, value, onChange, placeholder, type = 'text', read
         type={type} value={value} onChange={e => onChange?.(e.target.value)}
         placeholder={placeholder} readOnly={readOnly}
         style={{
-          width: '100%', padding: '11px 14px', background: readOnly ? T.bgInput : T.bgInput,
+          width: '100%', padding: '11px 14px', background: T.bgInput,
           border: `1px solid ${err ? T.red + '66' : T.border}`,
           borderRadius: T.radiusSm, color: readOnly ? T.textMuted : T.text,
           fontFamily: mono ? T.mono : T.font, fontSize: 13, outline: 'none',
@@ -143,7 +120,7 @@ export function Input({ label, value, onChange, placeholder, type = 'text', read
         }}
       />
       {hint && <p style={{ fontFamily: T.font, fontSize: 11, color: T.textDim, marginTop: 5 }}>{hint}</p>}
-      {err  && <p style={{ fontFamily: T.font, fontSize: 11, color: T.red, marginTop: 5 }}>{err}</p>}
+      {err  && <p style={{ fontFamily: T.font, fontSize: 11, color: T.red,     marginTop: 5 }}>{err}</p>}
     </div>
   );
 }
