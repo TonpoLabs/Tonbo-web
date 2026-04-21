@@ -6,7 +6,7 @@ import { useAuth } from '../auth/AuthContext';
 
 const NAV = {
   app: [
-    { to: '/',          label: 'Overview',   icon: '⬡' },
+    { to: '/dashboard',          label: 'Overview',   icon: '⬡' },
     { to: '/positions', label: 'Positions',  icon: '◈' },
     { to: '/trade',     label: 'New Order',  icon: '↗' },
     { to: '/webhooks',  label: 'Webhooks',   icon: '⟳' },
@@ -26,7 +26,7 @@ const NAV = {
 
 function NavItem({ item, location, onClick }) {
   const exact = item.to === '/';
-  const isActive = exact ? location.pathname === '/' : location.pathname.startsWith(item.to);
+  const isActive = exact ? location.pathname === '/dashboard' : location.pathname.startsWith(item.to);
   return (
     <NavLink
       to={item.to}
