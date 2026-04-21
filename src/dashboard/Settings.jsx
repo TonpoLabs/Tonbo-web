@@ -5,6 +5,7 @@ import { SectionTitle, Alert, Btn, Input } from '../components';
 import { rotateMyKey } from '../api/endpoints';
 import { useAuth } from '../auth/AuthContext';
 import { GATEWAY_URL } from '../theme';
+import { useNavigate } from 'react-router-dom';
 
 export default function Settings() {
   const { user, logout, login } = useAuth();
@@ -12,6 +13,7 @@ export default function Settings() {
   const [newKey,   setNewKey]   = useState(null);
   const [copied,   setCopied]   = useState(false);
   const [showKey,  setShowKey]  = useState(false);
+  const navigate = useNavigate();
 
   const handleRotate = async () => {
     if (!window.confirm('This will invalidate your current key immediately. Any running bots using the old key will disconnect. Continue?')) return;
@@ -36,6 +38,23 @@ export default function Settings() {
   const sectionHead = { fontFamily: T.font, fontSize: 15, fontWeight: 700, color: T.text, marginBottom: 18 };
 
   return (
+    <div
+      style={{
+        ...card,
+        display:         'flex',
+        justifyContent:  'space-between',
+        alignItems:      'center',
+        cursor:          'pointer',  
+      }}
+      onClick={() => navigate('/billing')}
+    >
+      <div>
+        <h3 style={sectionHead}>Plan & Billing</h3>
+        <p style={{ fontFamily: T.font, fontSize: 13, color: T.textMuted, marginTop: -10 }}>
+          Manage your subscription, upgrade your plan, and view payment history.
+        </p>
+      </div>
+      <span style={{ color: T.textDim, fontSize: 18 }}>→</span>
     <div style={{ maxWidth: 580 }}>
       <SectionTitle sub="API key, gateway configuration, and session">Settings</SectionTitle>
 
